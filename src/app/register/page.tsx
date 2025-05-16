@@ -8,8 +8,8 @@ export default function RegisterPage() {
         nome: '',
         email: '',
         senha: '',
-        empresa: '',
-        cargo: '',
+       // empresa: '',
+       // cargo: '',
         cep: '',
         logradouro: '',
         numero: '',
@@ -67,8 +67,8 @@ export default function RegisterPage() {
                     nome: '',
                     email: '',
                     senha: '',
-                    empresa: '',
-                    cargo: '',
+                   // empresa: '',
+                   // cargo: '',
                     cep: '',
                     logradouro: '',
                     numero: '',
@@ -140,7 +140,7 @@ export default function RegisterPage() {
                         />
                     </div>
 
-                    <div className={styles.formGroup}>
+                    {/*<div className={styles.formGroup}>
                         <label htmlFor="empresa" className={styles.label}>Empresa (opcional)</label>
                         <input
                             type="text"
@@ -150,7 +150,7 @@ export default function RegisterPage() {
                             onChange={(e) => setFormData({ ...formData, empresa: e.target.value })}
                             className={styles.input}
                         />
-                    </div>
+                    </>
 
                     <div className={styles.formGroup}>
                         <label htmlFor="cargo" className={styles.label}>Cargo (opcional)</label>
@@ -162,7 +162,7 @@ export default function RegisterPage() {
                             onChange={(e) => setFormData({ ...formData, cargo: e.target.value })}
                             className={styles.input}
                         />
-                    </div>
+                    </div>*/}
 
                     {/* Seção de Endereço */}
                     <div className={styles.addressSection}>
