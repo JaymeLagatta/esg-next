@@ -2,16 +2,18 @@ import { NextResponse } from 'next/server'
 import sql from 'mssql'
 
 const config = {
-    server: '127.0.0.1\\SQLEXPRESS', // Usando IP local
-    database: 'esg-next',
-    user: 'esg-app',      // Usuário que você criou
-    password: '123123!',  // Senha que você definiu
-    options: {
-        trustServerCertificate: true,
-        encrypt: false,    // Importante para conexões locais
-        integratedSecurity: false // Desativado para usar autenticação SQL
+  
+        user: 'esg-app',
+        password: '123123!',
+        server: 'localhost\\SQLEXPRESS',
+        database: 'esg-next',
+        port: 1433,
+        options: {
+            encrypt: false,
+            trustServerCertificate: true
+        }
     }
-}
+
 
 export async function POST(request: Request) {
     try {
@@ -37,8 +39,6 @@ export async function POST(request: Request) {
                 .input('nome', sql.NVarChar, formData.nome)
                 .input('email', sql.NVarChar, formData.email)
                 .input('senha', sql.NVarChar, formData.senha)
-                .input('empresa', sql.NVarChar, formData.empresa || null)
-                .input('cargo', sql.NVarChar, formData.cargo || null)
                 .input('cep', sql.VarChar, formData.cep || null)
                 .input('logradouro', sql.NVarChar, formData.logradouro || null)
                 .input('numero', sql.NVarChar, formData.numero || null)
@@ -48,10 +48,10 @@ export async function POST(request: Request) {
                 .input('uf', sql.Char, formData.uf || null)
                 .query(`
                     INSERT INTO usuarios (
-                        nome, email, senha, empresa, cargo,
+                        nome, email, senha, 
                         cep, logradouro, numero, complemento, bairro, cidade, uf, data_cadastro
                     ) VALUES (
-                        @nome, @email, @senha, @empresa, @cargo,
+                        @nome, @email, @senha, 
                         @cep, @logradouro, @numero, @complemento, @bairro, @cidade, @uf, GETDATE()
                     )
                 `)
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
             console.log('Registro inserido com sucesso!')
             return NextResponse.json({ message: 'Usuário cadastrado com sucesso!' }, { status: 201 })
         } catch (queryErr) {
-            console.error('Erro na query:', queryErr)
+            console.error('Erro na query completa:', JSON.stringify(queryErr, null, 2))
             return NextResponse.json(
                 { message: 'Erro ao executar a query no banco de dados' },
                 { status: 500 }
